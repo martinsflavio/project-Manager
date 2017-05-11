@@ -1,11 +1,11 @@
-var express = require('express');
-var exphbs = require('express-handlebars');
-var path = require('path');
-var bodyParser = require('body-parser');
-var db = require('./models');
-var app = express();
+const express = require('express'),
+      exphbs = require('express-handlebars'),
+      path = require('path'),
+      bodyParser = require('body-parser'),
+      db = require('./models'),
+      app = express();
 
-var PORT = process.env.NODE_ENV || 3000;
+const PORT = process.env.NODE_ENV || 8080;
 
 // view engine setup
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
@@ -20,14 +20,14 @@ app.use('/', require('./routes/index'));
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+app.use((req, res, next) => {
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -40,7 +40,7 @@ app.use(function(err, req, res, next) {
 // initialize db
 db.sequelize.sync({force: true}).then(function() {
   // start server
-  app.listen(PORT, function() {
-    console.log("App listening on" + PORT);
+  app.listen(PORT, () => {
+    console.log("App listening on => " + PORT);
   });
 });
