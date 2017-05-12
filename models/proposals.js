@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: models => {
         Proposals.belongsTo(models.Projects, {foreignKey: {allowNull: false}});
+        Proposals.belongsTo(models.Users, {foreignKey: {allowNull: false}});
       }
     }
   };
