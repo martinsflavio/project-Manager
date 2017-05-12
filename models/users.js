@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
 
   ///////// Schema
   schema = {
-    user_name: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -18,12 +18,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   };
+
   ///////// Association - 1:m
   association = {
     classMethods: models => {
-      Users.hasMany(models.Groups, {
-        onDelete: "cascade"
-      });
+      Users.hasMany(models.Projects, {onDelete: "cascade"});
     }
   };
 

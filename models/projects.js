@@ -9,7 +9,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    status: {
+    project_description: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    project_status: {
       type: DataTypes.INTEGER,
       defaultValue: 1,
       validate: {
@@ -17,15 +21,13 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   };
+
   ///////// Association - m:1
   association = {
     classMethods: {
       associate: models => {
-        Projects.belongsTo(models.Users, {
-          foreignKey: {
-            allowNull: false
-          }
-        })
+        Projects.belongsTo(models.Users, {foreignKey: {allowNull: false}});
+        Projects.hasMany(models.Attachments, {onDelete: "cascade"});
       }
     }
   };
