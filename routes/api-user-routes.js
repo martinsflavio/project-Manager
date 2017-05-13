@@ -1,19 +1,35 @@
 const express = require('express'),
-      router = express.Router(),
-      db = require('../models');
+      router  = express.Router(),
+      db      = require('../models');
 
-/* Send JSON with user information */
-router.post('/sign-in', (req,res)=> {
+/* Stores new user in DB */
+router.post('/sign-in', (req,res) => {
+
+  //(TODO) IT'S BETTER PASSING VALUES TO A LOCAL OBJ INSTEAD JUST PASSING req.body into DB
   db.Users.create(req.body).then(user => {
+
+    //testing route
     res.json(user);
+
   }).catch( error => {
-    console.log(error);
     res.render('error',error);
   });
-
 });
 
 
+/* Validates Users */
+router.post('/login', (req,res) => {
 
+  // (TODO) FIND HOW VALIDATE USER
+  db.Users.findAll().then( users => {
+
+    //testing route
+    res.json(users);
+
+
+  }).catch( error => {
+    res.render('error',error);
+  });
+});
 
 module.exports = router;

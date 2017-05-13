@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
 
   ///////// Schema
   schema = {
-    project_Subject: {
+    project_subject: {
       type: DataTypes.STRING,
       allowNull: false
     },
