@@ -18,12 +18,15 @@ app.use(expressVal()); // this line must be immediately after any of the bodyPar
 app.use(express.static(path.join(__dirname, 'public')));
 
 // import routes here
-app.use('/', require('./routes/view-auth-routes'));
-app.use('/user', require('./routes/view-user-routes'));
-app.use('/user', require('./routes/api-user-routes'));
-app.use('/user', require('./routes/api-project-routes'));
-app.use('/user', require('./routes/view-user-routes'));
-app.use('/', require('./routes/test.routes'));
+app.use('/', require('./routes/view-index-routes'));
+
+app.use('/view/user', require('./routes/view-user-routes'));
+app.use('/api/user', require('./routes/api-user-routes'));
+
+app.use('/view/user/project', require('./routes/view-project-routes'));
+app.use('/api/user/project', require('./routes/api-project-routes'));
+
+app.use('/', require('./routes/test-routes'));
 
 
 // catch 404 and forward to error handler

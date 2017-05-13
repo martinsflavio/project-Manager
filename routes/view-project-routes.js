@@ -6,7 +6,7 @@ const express     = require('express'),
 
 
 /* Create new Project */
-router.get('/project', (req,res) => {
+router.get('/all', (req,res) => {
   db.Projects.findAll().then( project => {
 
     //testing route

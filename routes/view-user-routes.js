@@ -2,6 +2,8 @@ const express = require('express'),
       db      = require('../models'),
       router  = express.Router();
 
+
+
 /* GET user profile page */
 router.get('/profile', (rep,res)=> {
   let userZipcode = 94015;

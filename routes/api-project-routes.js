@@ -6,9 +6,10 @@ const express     = require('express'),
 
 
 /* Create new Project */
-router.post('/project/new', (req,res) => {
-  db.Projects.create(req.body).then( project => {
+router.post('/new', (req,res) => {
 
+  db.Projects.create(req.body).then( project => {
+    console.log(project);
     //testing route
     res.json(project);
 

@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     zip_code: {
-      type: DataTypes.INTEGER(5),
+      type: DataTypes.STRING(15),
       allowNull: false
     }
   };

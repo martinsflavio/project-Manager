@@ -5,7 +5,7 @@ const express     = require('express'),
 
 
 /* Stores new user in DB */
-router.post('/sign-in', (req,res) => {
+router.post('/new', (req,res) => {
 
   //(TODO) IT'S BETTER PASSING VALUES TO A LOCAL OBJ INSTEAD JUST PASSING req.body into DB
   db.Users.create(req.body).then(user => {
