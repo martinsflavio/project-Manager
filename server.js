@@ -16,8 +16,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // import routes here
-app.use('/', require('./routes/index'));
-
+app.use('/', require('./routes/view-auth-routes'));
+app.use('/user', require('./routes/view-user-routes'));
+app.use('/user', require('./routes/api-user-routes'));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -38,7 +39,7 @@ app.use((err, req, res, next) => {
 });
 
 // initialize db
-db.sequelize.sync({force: true}).then(function() {
+db.sequelize.sync().then(function() {
   // start server
   app.listen(PORT, () => {
     console.log("App listening on => " + PORT);
