@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
   schema = {
     project_subject: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     project_description: {
       type: DataTypes.STRING,
@@ -19,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         max: 4,
       }
+    },
+    zip_code: {
+      type: DataTypes.INTEGER(5),
+      allowNull: false
     }
   };
 

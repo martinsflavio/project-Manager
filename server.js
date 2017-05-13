@@ -14,16 +14,17 @@ app.set("view engine", "handlebars");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-//(TODO) config validator
-//app.use(expressVal([options])); // this line must be immediately after any of the bodyParser middlewares!
-
+app.use(expressVal()); // this line must be immediately after any of the bodyParser middlewares!
 app.use(express.static(path.join(__dirname, 'public')));
 
 // import routes here
 app.use('/', require('./routes/view-auth-routes'));
 app.use('/user', require('./routes/view-user-routes'));
 app.use('/user', require('./routes/api-user-routes'));
+app.use('/user', require('./routes/api-project-routes'));
+app.use('/user', require('./routes/view-user-routes'));
+app.use('/', require('./routes/test.routes'));
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

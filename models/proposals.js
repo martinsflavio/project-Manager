@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
   schema = {
     proposal_title: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     proposal_body: {
       type: DataTypes.TEXT,

@@ -4,23 +4,14 @@ const express = require('express'),
 
 /* GET user profile page */
 router.get('/profile', (rep,res)=> {
-  db.Projects.findAll().then( projects => {
+  let userZipcode = 94015;
+  // (TODO) filter by zip code
+  db.Projects.findAll({where: {zip_code:userZipcode}}).then( projects => {
     res.render('profile',{title:'Profile Page', body:'Successfully Logged', projectsList: projects});
   }).catch( error => {
     res.render('error', error);
   });
-});
 
-/* Create new Project */
-router.post('/profile/new', (req,res) => {
-  db.Projects.create(req.body).then( project => {
-
-    //testing route
-    res.json(project);
-
-  }).catch( error => {
-    res.render('error', error);
-  });
 });
 
 

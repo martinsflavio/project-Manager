@@ -14,7 +14,6 @@ router.post('/sign-in', (req,res) => {
     res.json(user);
 
   }).catch( error => {
-    console.log(error);
     res.render('error',error);
   });
 });
