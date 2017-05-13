@@ -1,6 +1,8 @@
-const express = require('express'),
-      router  = express.Router(),
-      db      = require('../models');
+const express     = require('express'),
+      router      = express.Router(),
+      db          = require('../models'),
+      expressVal  = require('express-validator');
+
 
 /* Stores new user in DB */
 router.post('/sign-in', (req,res) => {
@@ -12,6 +14,7 @@ router.post('/sign-in', (req,res) => {
     res.json(user);
 
   }).catch( error => {
+    console.log(error);
     res.render('error',error);
   });
 });

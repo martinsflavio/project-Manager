@@ -1,9 +1,10 @@
-const express = require('express'),
-      exphbs = require('express-handlebars'),
-      path = require('path'),
-      bodyParser = require('body-parser'),
-      db = require('./models'),
-      app = express();
+const express     = require('express'),
+      exphbs      = require('express-handlebars'),
+      path        = require('path'),
+      bodyParser  = require('body-parser'),
+      expressVal  = require('express-validator'),
+      db          = require('./models'),
+      app         = express();
 
 const PORT = process.env.NODE_ENV || 8080;
 
@@ -13,6 +14,10 @@ app.set("view engine", "handlebars");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+//(TODO) config validator
+//app.use(expressVal([options])); // this line must be immediately after any of the bodyParser middlewares!
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // import routes here
@@ -45,3 +50,6 @@ db.sequelize.sync().then(function() {
     console.log("App listening on => " + PORT);
   });
 });
+
+
+//(TODO) CHANGE THE STATUS ON ERROR
