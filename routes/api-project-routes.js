@@ -9,14 +9,17 @@ const express     = require('express'),
 router.post('/new', (req,res) => {
 
   db.Projects.create(req.body).then( project => {
-    console.log(project);
+
+
     //testing route
     res.json(project);
+
 
   }).catch( error => {
     res.render('error', error);
   });
 });
+
 
 
 module.exports = router;

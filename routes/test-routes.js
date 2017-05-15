@@ -6,7 +6,10 @@ const express     = require('express'),
 
 
 
-// create routes here
+// testing route file
+router.get('/test', (req,res) => {
+  console.log('route ok');
+});
 
 
 
