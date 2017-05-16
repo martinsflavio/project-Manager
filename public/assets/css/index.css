@@ -1,6 +1,33 @@
-.jumbotron {
+/*.jumbotron {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+*/
+.jumbotron {
+	/*background-image: url('../img/5.jpg');*/
+	background-color: grey;
+	color:black;
+	font:italic;
+	height: 100%;
+	width: 60%;
+	left: 50%;
+	background-size: cover;
+}
+
+body {
+    background-image: url('../img/1.jpg');
+  
+    font-family: 'Open Sans', sans-serif;
+    margin:10px;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+
+}
+
+.form-group{
+  width: 500px;
 }
