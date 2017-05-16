@@ -6,6 +6,10 @@ const express     = require('express'),
       db          = require('./models'),
       app         = express();
 
+var passport = require('passport');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+
 const PORT = process.env.NODE_ENV || 8080;
 
 // view engine setup
@@ -16,6 +20,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressVal()); // this line must be immediately after any of the bodyParser middlewares!
 app.use(express.static(path.join(__dirname, 'public')));
+
+// For Passport
+app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true})); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
 
 // import routes here
 app.use('/', require('./routes/view-index-routes'));
