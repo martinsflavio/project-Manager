@@ -26,12 +26,16 @@ router.post('/login', (req,res) => {
       password: req.body.password
     },
   };
-
   db.Users.findOne(user).then( users => {
+
+
+
     if (users) {
-      res.render('auth-page', users);
+      //res.json(users);
+      res.render('test', res.json(users));
     } else {
-      res.render('/view/login');
+      res.json(users);
+      //res.render('login');
     }
   }).catch( error => {
     res.render('error',error);
