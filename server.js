@@ -1,14 +1,13 @@
-const express     = require('express'),
-      exphbs      = require('express-handlebars'),
-      path        = require('path'),
-      bodyParser  = require('body-parser'),
-      expressVal  = require('express-validator'),
-      db          = require('./models'),
-      app         = express();
-
-var passport = require('passport');
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
+const express      = require('express'),
+      exphbs       = require('express-handlebars'),
+      path         = require('path'),
+      bodyParser   = require('body-parser'),
+      expressVal   = require('express-validator'),
+      db           = require('./models'),
+      app          = express(),
+      passport     = require('passport'),
+      session      = require('express-session'),
+      cookieParser = require('cookie-parser');
 
 const PORT = process.env.NODE_ENV || 8080;
 
