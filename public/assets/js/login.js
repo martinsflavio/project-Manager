@@ -4,23 +4,25 @@ $('#login-btn').on('click', e =>{
 
     let url = window.location.origin;
     let user = {
-      username: $('#username').val().trim()
+      email: $('#email').val().trim(),
+      password: $('#user-password').val().trim()
     };
 
-  $.post( "/user/login", ( data )=> {
-    location.reload(data);
-  });
+
+    console.log(user);
 
 
 
- /*   $.ajax({
+
+    $.ajax({
       type: "POST",
-      url:"/user/login",
+      url:"/api/user/login",
       processData: false,
       contentType: 'application/json',
       data: JSON.stringify(user),
     }).done((res,err)=>{
-
-    });*/
+        if (err) throw err;
+        console.log(res);
+    });
 
 });

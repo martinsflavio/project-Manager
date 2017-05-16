@@ -7,7 +7,6 @@ const express     = require('express'),
 /* Stores new user in DB */
 router.post('/new', (req,res) => {
 
-  //(TODO) IT'S BETTER PASSING VALUES TO A LOCAL OBJ INSTEAD JUST PASSING req.body into DB
   db.Users.create(req.body).then(user => {
 
     //testing route
@@ -21,17 +20,23 @@ router.post('/new', (req,res) => {
 
 /* Validates Users */
 router.post('/login', (req,res) => {
+  let user = {
+    where: {
+      email: req.body.email,
+      password: req.body.password
+    },
+  };
 
-  // (TODO) FIND HOW VALIDATE USER
-  db.Users.findAll().then( users => {
-
-    //testing route
-    res.json(users);
-
-
+  db.Users.findOne(user).then( users => {
+    if (users) {
+      res.render('auth-page', users);
+    } else {
+      res.render('/view/login');
+    }
   }).catch( error => {
     res.render('error',error);
   });
 });
 
 module.exports = router;
+
