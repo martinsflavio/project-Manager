@@ -5,7 +5,7 @@ const express = require('express'),
 
 
 /* GET user profile page */
-router.get('/profile/:id', (req,res)=> {
+router.get('/user-home', (req,res)=> {
   let userId = req.params.id;
 
   let query = {

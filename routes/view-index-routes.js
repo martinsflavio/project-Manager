@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 
 
 /* GET new user page */
-router.get('/view/register', (req, res) => {
+router.get('/view/new', (req, res) => {
   res.render('register',{ title: 'New User', body:'Project Manager'});
 });
 
