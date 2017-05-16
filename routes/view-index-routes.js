@@ -8,8 +8,8 @@ router.get('/', (req, res) => {
 
 
 /* GET new user page */
-router.get('/view/sign-in', (req, res) => {
-  res.render('sign-in',{ title: 'New User', body:'Project Manager'});
+router.get('/view/register', (req, res) => {
+  res.render('register',{ title: 'New User', body:'Project Manager'});
 });
 
 
