@@ -5,9 +5,11 @@ const express     = require('express'),
 
 
 
-/* Create new Project */
-router.get('/all', (req,res) => {
-  db.Projects.findAll().then( project => {
+/* GET all the projects in a specific zip code */
+router.get('/all/:zip', (req,res) => {
+  let userZipCode = req.params.zip;
+
+  db.Projects.findAll({where:{zip_code:userZipCode}}).then( project => {
 
     //testing route
     res.json(project);

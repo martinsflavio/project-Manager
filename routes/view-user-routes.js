@@ -5,11 +5,25 @@ const express = require('express'),
 
 
 /* GET user profile page */
-router.get('/profile', (rep,res)=> {
-  let userZipcode = 94015;
-  // (TODO) filter by zip code
-  db.Projects.findAll({where: {zip_code:userZipcode}}).then( projects => {
-    res.render('profile',{title:'Profile Page', body:'Successfully Logged', projectsList: projects});
+router.get('/profile/:id', (req,res)=> {
+  let userId = req.params.id;
+
+  let query = {
+    where: {id: userId},
+    include: [
+      {model: db.Projects, where: {UserId:userId}}
+    ]
+  };
+
+
+
+  db.Users.findAll(query).then( projects => {
+   // res.render('profile',{title:'Profile Page', body:'Successfully Logged', projectsList: projects});
+
+
+    res.json(projects);
+
+
   }).catch( error => {
     res.render('error', error);
   });
