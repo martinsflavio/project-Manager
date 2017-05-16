@@ -7,11 +7,18 @@ const express     = require('express'),
 
 
 // testing route file
-router.get('/test', (req,res) => {
-  console.log('route ok');
+router.get('/userhome', (req,res) => {
+res.render('user-home');
+});
+
+router.get('/add-project', (req,res) => {
+ res.render('add-project');
 });
 
 
 
+router.get('/search', (req,res) => {
+ res.render('search');
+});
 
 module.exports = router;
