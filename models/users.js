@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   let Users;
   let schema;
@@ -5,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 
   ///////// Schema
   schema = {
-    username: {
+    userName: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
@@ -21,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    zip_code: {
+    zipCode: {
       type: DataTypes.STRING(15),
       allowNull: false
     }

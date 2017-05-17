@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   let Attachments;
   let schema;
@@ -5,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 
   ///////// Schema
   schema = {
-    attachment_description: {
+    attachmentDescription: {
       type: DataTypes.STRING
     },
     urls: {

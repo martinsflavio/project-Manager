@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   let Comments;
   let schema;
@@ -5,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 
   ///////// Schema
   schema = {
-    comment_body: {
+    commentBody: {
       type: DataTypes.TEXT
     }
   };

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   let Projects;
   let schema;
@@ -5,23 +7,23 @@ module.exports = (sequelize, DataTypes) => {
 
   ///////// Schema
   schema = {
-    project_subject: {
+    projectSubject: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
-    project_description: {
+    projectDescription: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    project_status: {
+    projectStatus: {
       type: DataTypes.INTEGER,
       defaultValue: 1,
       validate: {
         max: 4,
       }
     },
-    zip_code: {
+    zipCode: {
       type: DataTypes.STRING(15),
       allowNull: false
     }
