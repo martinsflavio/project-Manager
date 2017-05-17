@@ -1,6 +1,9 @@
+'use strict';
+
 const express = require('express'),
       db      = require('../models'),
       router  = express.Router();
+
 
 
 
@@ -14,8 +17,6 @@ router.get('/user-home', (req,res)=> {
       {model: db.Projects, where: {UserId:userId}}
     ]
   };
-
-
 
   db.Users.findAll(query).then( projects => {
    // res.render('profile',{title:'Profile Page', body:'Successfully Logged', projectsList: projects});

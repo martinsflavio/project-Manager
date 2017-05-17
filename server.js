@@ -1,3 +1,5 @@
+'use strict';
+
 const express      = require('express'),
       exphbs       = require('express-handlebars'),
       path         = require('path'),
@@ -56,7 +58,7 @@ app.use((err, req, res, next) => {
 });
 
 // initialize db
-db.sequelize.sync().then(function() {
+db.sequelize.sync({force:true}).then(function() {
   // start server
   app.listen(PORT, () => {
     console.log("App listening on => " + PORT);

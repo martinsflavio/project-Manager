@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   let Proposals;
   let schema;
@@ -5,19 +7,19 @@ module.exports = (sequelize, DataTypes) => {
 
   ///////// Schema
   schema = {
-    proposal_title: {
+    proposalTitle: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
-    proposal_body: {
+    proposalBody: {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    proposal_agree: {
+    proposalAgree: {
       type: DataTypes.INTEGER
     },
-    proposal_disagree: {
+    proposalDisagree: {
       type: DataTypes.INTEGER
     }
   };
