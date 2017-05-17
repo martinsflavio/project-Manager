@@ -4,6 +4,8 @@ const express     = require('express'),
       router      = express.Router(),
       db          = require('../models');
 
+
+
 /* Stores new user in DB */
 router.post('/register', (req,res) => {
   let newUser = {};
@@ -44,7 +46,6 @@ router.post('/register', (req,res) => {
 });
 
 
-
 /* Validates Users */
 router.post('/login', (req,res) => {
   let errors;
@@ -57,6 +58,7 @@ router.post('/login', (req,res) => {
   errors = req.validationErrors();
 
   if(errors){
+    console.log(errors);
     res.render('login',{msg:errors});
   } else {
 
@@ -66,17 +68,18 @@ router.post('/login', (req,res) => {
         password: req.body.password
       }
     };
+    //(TODO) REDIRECT DOESN'TO WORK WITH CONCATENATE STRING
+    db.Users.findOne(user).then(regUser => {
+      let userId = regUser.dataValues.id;
 
-    db.Users.findOne(user).then(users => {
+      console.log('user found ' + userId);
 
-      if (users) {
-        res.render('user-home');
-      } else {
-        res.render('login',{msg:"User name and Password ar wrong or doesn't exist"});
-      }
+      res.redirect('/view/user/dashboard/11');
 
     }).catch(errors => {
-      res.render('login',{msg:errors});
+
+      res.render('login',{msg:[{msg:'Email or Password Invalid'}]});
+
     });
 
   }

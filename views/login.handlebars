@@ -3,7 +3,20 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<h1>Login</h1>
-			<p>{{this.msg}}</p>
+				{{regUser}}
+				{{#if this}}
+					{{#each this.msg}}
+						<li>
+							<p>{{this.msg}}</p>
+						</li>
+					{{/each}}
+
+				{{else}}
+					<p>User not Found</p>
+				{{/if}}
+
+
+
 			<form>
 				<div class="form-group">
 					<label for="user-email">Email</label>

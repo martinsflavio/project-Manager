@@ -36,7 +36,7 @@ app.use('/api/user', require('./routes/api-user-routes'));
 app.use('/view/user/project', require('./routes/view-project-routes'));
 app.use('/api/user/project', require('./routes/api-project-routes'));
 
-app.use('/', require('./routes/test-routes'));
+app.use('/test', require('./routes/test-routes'));
 
 
 // catch 404 and forward to error handler
@@ -58,7 +58,7 @@ app.use((err, req, res, next) => {
 });
 
 // initialize db
-db.sequelize.sync({force:true}).then(function() {
+db.sequelize.sync().then(function() {
   // start server
   app.listen(PORT, () => {
     console.log("App listening on => " + PORT);

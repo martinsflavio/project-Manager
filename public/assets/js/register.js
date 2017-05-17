@@ -12,7 +12,6 @@ $('#register-btn').on('click', e =>{
     zipCode: $('#zip-code').val().trim()
   };
 
-
   $.post(url + "/api/user/register", user, (err, data) => {
    if (err) throw err;
    console.log(data);
