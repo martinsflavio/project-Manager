@@ -15,7 +15,10 @@ router.get('/add-project', (req,res) => {
  res.render('add-project');
 });
 
-
+router.post('/test' ,(req,res)=>{
+//res.render('/test');
+console.log(req.body);
+});
 
 router.get('/search', (req,res) => {
  res.render('search');

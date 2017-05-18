@@ -1,12 +1,12 @@
 	<div class="container">
 
-			<div class="jumbotron">
-				<h1>Project Manager</h1>
+			<div>
+				<h2>Project Manager</h2>
 				<h3>Working together in a planned and coordinated way to achieve a common goal</h3>
 				<hr>
 				<a href="/search" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-eye-open"></span> Search Projects</a>
 				<a href="/add-project" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-plus"></span> Add New Project</a>
-				<a href="/user-home" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-th-list"></span> All Projects</a>
+				<a href="/userhome" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-th-list"></span> All Projects</a>
 				
 			</div>
 
@@ -29,11 +29,22 @@
 								</div>
 								<div class="form-group">
 									<label for="">category</label>
-									<input type="text" class="form-control" id="category" placeholder="">
-								</div>
+									
+    <select name="category" class="form-control selectpicker" >
+      <option value=" " >Select your category</option>
+      <option value ="Personal">Personal</option>
+      <option value ="IT">IT</option>
+      <option value="assignment" >assignment</option>
+      <option value = "environment">environment</option>
+      <option value = "Politics">Politics</option>
+      <option value = "event">event</option>
+      <option value = "city">city</option>      
+      </select>
+								
+		</div>
 								<div class="form-group">
 									<label for="">zipcode</label>
-									<input type="number" class="form-control" id="zipcode" placeholder="">
+									<input type="text" class="form-control" id="zipcode" placeholder="">
 								</div>
 							</form>
 							<br>
@@ -47,3 +58,7 @@
 			</div>
 
 		</div>
+
+<script src="/assets/js/addproject.js"> 
+
+      </script>

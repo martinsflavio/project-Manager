@@ -6,7 +6,8 @@
 			<form>
 				<div class="form-group">
 					<label for="username">User name</label>
-					<input type="text" class="form-control" id="username" placeholder="User name">
+					<input type="text"  maxlength ="50" required autofocus  name="username" class="form-control" id="username" placeholder="User name"
+					title="Please enter username">
 				</div>
 				<div class="form-group">
 					<label for="password">Password</label>
@@ -15,6 +16,17 @@
 				<button type="submit" id="login-btn" class="btn btn-success">Login</button>
 			</form>
 		</div>
+	</div>
+	<div class="row subscribtions">
+		Subscribe me to 
+		<label>
+			<input type="checkbox" id="newsletter" name="newsletter" checked value="yes">
+			Montly Newsletters
+		</label>
+		<label>
+			<input type = "checkbox" id="blog" name="blog" checked value="yes">
+			Blog Updates
+		</label>
 	</div>
 </div>
 
