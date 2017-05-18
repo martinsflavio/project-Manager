@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     zipCode: {
-      type: DataTypes.STRING(15),
+      type: DataTypes.STRING(10),
       allowNull: false
     }
   };

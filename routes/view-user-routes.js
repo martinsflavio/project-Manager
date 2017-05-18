@@ -8,26 +8,27 @@ const express = require('express'),
 
 
 /* GET user profile page */
-router.get('/user-home', (req,res)=> {
-  let userId = req.params.id;
+router.get('/dashboard/:id', (req,res)=> {
 
-  let query = {
-    where: {id: userId},
-    include: [
-      {model: db.Projects, where: {UserId:userId}}
-    ]
+  console.log('FROM DASHBOARD PAGE');
+
+  let id = req.params.id;
+
+  let user = {
+    where: {id: id},
+    //include: [db.Projects]
   };
 
-  db.Users.findAll(query).then( projects => {
-   // res.render('profile',{title:'Profile Page', body:'Successfully Logged', projectsList: projects});
 
-
-    res.json(projects);
+  db.Users.findAll(user).then( regUser => {
 
 
   }).catch( error => {
-    res.render('error', error);
+    console.log("ERRRRRORRRR");
+    res.render('error', {msg:error});
   });
+
+
 
 });
 

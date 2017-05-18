@@ -16,15 +16,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    projectStatus: {
-      type: DataTypes.INTEGER,
-      defaultValue: 1,
-      validate: {
-        max: 4,
-      }
-    },
     zipCode: {
-      type: DataTypes.STRING(15),
+      type: DataTypes.STRING(10),
       allowNull: false
     }
   };
