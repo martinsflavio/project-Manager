@@ -68,13 +68,13 @@ router.post('/login', (req,res) => {
         password: req.body.password
       }
     };
-    //(TODO) REDIRECT DOESN'TO WORK WITH CONCATENATE STRING
+
     db.Users.findOne(user).then(regUser => {
       let userId = regUser.dataValues.id;
 
-      console.log('user found ' + userId);
+      console.log(`/view/user/dashboard/${userId}`);
 
-      res.redirect('/view/user/dashboard/11');
+      res.redirect(`/view/user/dashboard/${userId}`);
 
     }).catch(errors => {
 

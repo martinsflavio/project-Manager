@@ -9,23 +9,26 @@ const express = require('express'),
 
 /* GET user profile page */
 router.get('/dashboard/:id', (req,res)=> {
-  console.log('success on redirect to dashboard');
+
+  console.log('FROM DASHBOARD PAGE');
 
   let id = req.params.id;
 
-  let projects = {
-    where: {UserId: id},
-    include: [db.Users]
+  let user = {
+    where: {id: id},
+    //include: [db.Projects]
   };
-    console.log(projects);
-  db.Projects.findAll(projects).then( regProject => {
-    let user = regProject[0].dataValues.User.dataValues.userName;
 
-    res.render('dashboard',{msg:user});
-    console.log(regProject[0].dataValues);
+
+  db.Users.findAll(user).then( regUser => {
+
+
   }).catch( error => {
+    console.log("ERRRRRORRRR");
     res.render('error', {msg:error});
   });
+
+
 
 });
 
