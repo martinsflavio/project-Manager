@@ -7,7 +7,7 @@ const express     = require('express'),
 
 
 /* GET user profile page */
-router.get('/dashboard/:id', (req,res)=> {
+router.get('/dashboard', (req,res)=> {
   res.render('dashboard');
   console.log(req.params.id);
 
