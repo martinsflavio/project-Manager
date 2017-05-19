@@ -1,4 +1,4 @@
-# project-Manager
+# Project-Manager
 A Project sharing Application
 ## Made by
 - Arezzo Tajer
