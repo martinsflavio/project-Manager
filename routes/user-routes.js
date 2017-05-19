@@ -1,9 +1,8 @@
 'use strict';
 
-const express = require('express'),
-      db      = require('../models'),
-      router  = express.Router();
-
+const express     = require('express'),
+      router      = express.Router(),
+      db          = require('../models');
 
 
 
@@ -22,6 +21,8 @@ router.get('/dashboard/:id', (req,res)=> {
 
   db.Users.findAll(user).then( regUser => {
 
+    //res.render('dashboard',{regUser});
+   res.json(regUser);
 
   }).catch( error => {
     console.log("ERRRRRORRRR");
@@ -32,5 +33,5 @@ router.get('/dashboard/:id', (req,res)=> {
 
 });
 
-
 module.exports = router;
+

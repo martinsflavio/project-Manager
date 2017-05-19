@@ -7,6 +7,12 @@ module.exports = (sequelize, DataTypes) => {
 
   ///////// Schema
   schema = {
+    id: {
+      type: DataTypes.INTEGER,
+      field: 'ProjId',
+      primaryKey: true,
+      autoIncrement: true
+    },
     projectSubject: {
       type: DataTypes.STRING,
       allowNull: false,

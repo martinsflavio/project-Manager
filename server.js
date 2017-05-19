@@ -9,7 +9,9 @@ const express      = require('express'),
       app          = express(),
       passport     = require('passport'),
       session      = require('express-session'),
-      cookieParser = require('cookie-parser');
+      cookieParser = require('cookie-parser'),
+      flash        = require('connect-flash');
+
 
 const PORT = process.env.NODE_ENV || 8080;
 
@@ -19,6 +21,8 @@ app.set("view engine", "handlebars");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// express validator
 app.use(expressVal()); // this line must be immediately after any of the bodyParser middlewares!
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -27,17 +31,25 @@ app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true}))
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-//load passport strategies
-require('./passport/passport.js')(passport, db.Users);
+
+// Connect Flash
+app.use(flash());
+
+// Global Vars
+app.use(function (req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
+  next();
+});
+
 
 // import routes here
-app.use('/', require('./routes/view-index-routes'));
+app.use('/', require('./routes/index-routes'));
+app.use('/user', require('./routes/user-routes'));
+app.use('/user', require('./routes/project-routes'));
 
-app.use('/view/user', require('./routes/view-user-routes'));
-app.use('/api/user', require('./routes/api-user-routes'));
-
-app.use('/view/user/project', require('./routes/view-project-routes'));
-app.use('/api/user/project', require('./routes/api-project-routes'));
 
 app.use('/test', require('./routes/test-routes'));
 
@@ -61,7 +73,7 @@ app.use((err, req, res, next) => {
 });
 
 // initialize db
-db.sequelize.sync().then(function() {
+db.sequelize.sync({force:true}).then(function() {
   // start server
   app.listen(PORT, () => {
     console.log("App listening on => " + PORT);

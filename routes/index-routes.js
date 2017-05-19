@@ -1,40 +1,54 @@
 'use strict';
 
-const express     = require('express'),
-      router      = express.Router(),
-      db          = require('../models');
+const express = require('express'),
+      router  = express.Router(),
+      db      = require('../models');
 
+///////////////// index page //////////////////
 
+// Render Home Page
+router.get('/', (req, res) => {
+  res.render('index');
+});
 
-/* Stores new user in DB */
+///////////////// register page ////////////////
+
+// Render User Page
+router.get('/register', (req, res) => {
+  res.render('register');
+});
+
+// Add new User
 router.post('/register', (req,res) => {
   let newUser = {};
   let errors;
-
+  console.log(req.body);
   // Validation
+  req.checkBody('name', 'Name is required').notEmpty();
   req.checkBody('email', 'Email is required').notEmpty();
   req.checkBody('email', 'Email is not valid').isEmail();
   req.checkBody('userName', 'Username is required').notEmpty();
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
-  req.checkBody('zipCode', 'Please enter a valid ZIP code').notEmpty().len(5,9);
 
   errors = req.validationErrors();
 
 
   if(errors){
 
-    res.render('register',{msg:errors});
+    res.render('register',{errors:errors});
 
   } else {
+    newUser.name      = req.body.name;
     newUser.userName  = req.body.userName;
     newUser.email     = req.body.email;
     newUser.password  = req.body.password;
-    newUser.zipCode   = req.body.zipCode;
+
 
 
     db.Users.create(newUser).then(regUser => {
 
+      req.flash('success_msg', 'You are registered and can now login');
       res.redirect('/login');
 
     }).catch( errors => {
@@ -44,9 +58,14 @@ router.post('/register', (req,res) => {
     });
   }
 });
+///////////////// login page //////////////////
 
+// Render Login Page
+router.get('/login', (req, res) => {
+  res.render('login');
+});
 
-/* Validates Users */
+// Authenticate User
 router.post('/login', (req,res) => {
   let errors;
 
@@ -72,9 +91,9 @@ router.post('/login', (req,res) => {
     db.Users.findOne(user).then(regUser => {
       let userId = regUser.dataValues.id;
 
-      console.log(`/view/user/dashboard/${userId}`);
+      console.log(`/user/dashboard/${userId}`);
 
-      res.redirect(`/view/user/dashboard/${userId}`);
+      res.redirect(`/user/dashboard/${userId}`);
 
     }).catch(errors => {
 
@@ -86,5 +105,6 @@ router.post('/login', (req,res) => {
 
 });
 
-module.exports = router;
+///////////////////////////////////////////////
 
+module.exports = router;

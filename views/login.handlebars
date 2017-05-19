@@ -1,36 +1,12 @@
-
-<div class="container">
-	<div class="row">
-		<div class="col-sm-12">
-			<h1>Login</h1>
-				{{regUser}}
-				{{#if this}}
-					{{#each this.msg}}
-						<li>
-							<p>{{this.msg}}</p>
-						</li>
-					{{/each}}
-
-				{{else}}
-					<p>User not Found</p>
-				{{/if}}
-
-
-
-			<form>
-				<div class="form-group">
-					<label for="user-email">Email</label>
-					<input type="text" class="form-control" id="user-email" placeholder="email">
-				</div>
-				<div class="form-group">
-					<label for="user-password">Password</label>
-					<input type="password" class="form-control" id="user-password" placeholder="Password">
-				</div>
-				<button type="submit" id="login-btn" class="btn btn-success">Login</button>
-			</form>
-		</div>
-	</div>
-</div>
-
-<script src="/assets/js/login.js"></script>
-
+<h2 class="page-header">Account Login</h2>
+<form method="post" action="/login">
+  <div class="form-group">
+    <label>Username</label>
+    <input type="text" class="form-control" name="userName" placeholder="Username">
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" class="form-control" name="password" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>

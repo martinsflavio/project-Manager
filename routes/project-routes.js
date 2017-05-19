@@ -6,9 +6,9 @@ const express     = require('express'),
 
 
 
-
+/////////////////////// project page ///////////////////////////////
 /* Create new Project */
-router.post('/register/:id', (req,res) => {
+router.post('/create/:id', (req,res) => {
   let userId = req.params.id;
   let errors;
   let newProject = {};
@@ -34,14 +34,14 @@ router.post('/register/:id', (req,res) => {
 
     db.Projects.create(newProject).then(regProject => {
 
-      res.redirect('/view/user/dashboard/' + userId);
+      res.redirect(`/user/dashboard/${newProject.UserId}`);
 
     }).catch(error => {
       res.render('error', error);
     });
   }
 });
-
+////////////////////////////////////////////////////////////////////
 
 
 module.exports = router;

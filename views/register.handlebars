@@ -1,43 +1,29 @@
-
-<div class="container">
-	<div class="row">
-		<div class="col-sm-12">
-			<h1>Register</h1>
-			<ul class="errors-list">
-				{{#each msg}}
-					<li>
-						{{#each this}}
-							 <p>{{this}}</p>
-						{{/each}}
-					</li>
-				{{/each}}
-			</ul>
-			<form>
-				<div class="form-group">
-					<label for="username">User name</label>
-					<input type="text" class="form-control" id="user-name" placeholder="User name">
-				</div>
-				<div class="form-group">
-					<label for="email">Email address</label>
-					<input type="email" class="form-control" id="user-email" placeholder="Email">
-				</div>
-				<div class="form-group">
-					<label for="password">Password</label>
-					<input type="password" class="form-control" id="user-password" placeholder="Password">
-				</div>
-				<div class="form-group">
-					<label for="passwordMatch">Re-Enter Password</label>
-					<input type="password" class="form-control" id="password-match" placeholder="Password">
-				</div>
-				<div class="form-group">
-					<label for="zip-code">Zip Code</label>
-					<input type="zip-code" class="form-control" id="zip-code" placeholder="Zip code">
-				</div>
-				<button type="submit" id="register-btn" class="btn btn-success">Submit</button>
-			</form>
-		</div>
-	</div>
-</div>
-
-<script src="/assets/js/register.js"></script>
-
+<h2 class="page-header">Register</h2>
+{{#if errors}}
+      {{#each errors}}
+        <div class="alert alert-danger">{{msg}}</div>
+      {{/each}}
+{{/if}}
+<form method="post" action="/register">
+   <div class="form-group">
+    <label>Name</label>
+    <input type="text" class="form-control" placeholder="Name" name="name">
+  </div>
+  <div class="form-group">
+    <label>Username</label>
+    <input type="text" class="form-control" placeholder="Username" name="userName">
+  </div>
+   <div class="form-group">
+    <label>Email</label>
+    <input type="email" class="form-control" placeholder="Email" name="email">
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" class="form-control" placeholder="Password" name="password">
+  </div>
+  <div class="form-group">
+    <label>Confirm Password</label>
+    <input type="password" class="form-control" placeholder="Password" name="password2">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>

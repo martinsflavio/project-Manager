@@ -7,6 +7,16 @@ module.exports = (sequelize, DataTypes) => {
 
   ///////// Schema
   schema = {
+    id: {
+      type: DataTypes.INTEGER,
+      field: 'UserId',
+      primaryKey: true,
+      autoIncrement: true
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     userName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -22,17 +32,13 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    zipCode: {
-      type: DataTypes.STRING(10),
-      allowNull: false
     }
   };
 
   ///////// Association - 1:m
   association = {
     classMethods: models => {
-      Users.hasMany(models.Projects, {onDelete: "cascade"});
+      Users.hasToMany(models.Projects, {onDelete: "cascade"});
     }
   };
 
