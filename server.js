@@ -19,6 +19,7 @@ const PORT = process.env.NODE_ENV || 8080;
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+app.use(cookieParser('myKey'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -26,8 +27,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressVal()); // this line must be immediately after any of the bodyParser middlewares!
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 // For Passport
-app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true})); // session secret
+app.use(session({ secret: 'myKey',resave: true, saveUninitialized:true})); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
