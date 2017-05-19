@@ -31,6 +31,8 @@ app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true}))
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
+//load passport strategies
+require('./passport/passport.js')(passport, db.Users);
 
 // Connect Flash
 app.use(flash());
@@ -73,7 +75,7 @@ app.use((err, req, res, next) => {
 });
 
 // initialize db
-db.sequelize.sync({force:true}).then(function() {
+db.sequelize.sync().then(function() {
   // start server
   app.listen(PORT, () => {
     console.log("App listening on => " + PORT);

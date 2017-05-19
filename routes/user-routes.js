@@ -8,27 +8,8 @@ const express     = require('express'),
 
 /* GET user profile page */
 router.get('/dashboard/:id', (req,res)=> {
-
-  console.log('FROM DASHBOARD PAGE');
-
-  let id = req.params.id;
-
-  let user = {
-    where: {id: id},
-    //include: [db.Projects]
-  };
-
-
-  db.Users.findAll(user).then( regUser => {
-
-    //res.render('dashboard',{regUser});
-   res.json(regUser);
-
-  }).catch( error => {
-    console.log("ERRRRRORRRR");
-    res.render('error', {msg:error});
-  });
-
+  res.render('dashboard');
+  console.log(req.params.id);
 
 
 });
