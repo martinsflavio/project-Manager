@@ -1,6 +1,8 @@
 # Project-Manager
 A Project sharing Application
-## Made by
+## Developers
+### Front-end
 - Arezzo Tajer
+### Back-end
 - Ricky Grams
 - Flavio Martins
