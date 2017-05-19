@@ -1,16 +1,17 @@
 'use strict';
 
-const express      = require('express'),
-      exphbs       = require('express-handlebars'),
-      path         = require('path'),
-      bodyParser   = require('body-parser'),
-      expressVal   = require('express-validator'),
-      db           = require('./models'),
-      app          = express(),
-      passport     = require('passport'),
-      session      = require('express-session'),
-      cookieParser = require('cookie-parser'),
-      flash        = require('connect-flash');
+const express            = require('express'),
+      exphbs             = require('express-handlebars'),
+      path               = require('path'),
+      bodyParser         = require('body-parser'),
+      expressValidator   = require('express-validator'),
+      bcrypt             = require('bcryptjs'),
+      db                 = require('./models'),
+      app                = express(),
+      passport           = require('passport'),
+      session            = require('express-session'),
+      cookieParser       = require('cookie-parser'),
+      flash              = require('connect-flash');
 
 
 const PORT = process.env.NODE_ENV || 8080;
@@ -19,23 +20,41 @@ const PORT = process.env.NODE_ENV || 8080;
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-app.use(cookieParser('myKey'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// express validator
-app.use(expressVal()); // this line must be immediately after any of the bodyParser middlewares!
+// set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// For Passport
-app.use(session({ secret: 'myKey',resave: true, saveUninitialized:true})); // session secret
+// Express Session
+app.use(session({
+  secret: 'secret',
+  saveUninitialized: true,
+  resave: true
+}));
+
+// Passport init
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+app.use(passport.session());
 
-//load passport strategies
-require('./passport/passport.js')(passport, db.Users);
+// Express Validator
+app.use(expressValidator({
+  errorFormatter: (param, msg, value) => {
+    let namespace = param.split('.')
+        , root    = namespace.shift()
+        , formParam = root;
 
+    while(namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param : formParam,
+      msg   : msg,
+      value : value
+    };
+  }
+}));
 // Connect Flash
 app.use(flash());
 
