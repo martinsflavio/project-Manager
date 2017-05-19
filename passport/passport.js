@@ -24,7 +24,9 @@ module.exports = function(passport, user) {
                 console.log('That username is already taken.');
           		return done(null, false, {message: 'That username is already taken.'});
             
-
+            } else if (!user && req.body.password !== req.body.password2) {
+                return done(null, false, {message: 'Passwords need to match.'});
+            
 
             } else if (!user && req.body.password === req.body.password2) {
                 console.log("wow this worked");
