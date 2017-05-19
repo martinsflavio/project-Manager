@@ -27,6 +27,9 @@ app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true}))
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
+//load passport strategies
+require('./passport/passport.js')(passport, db.Users);
+
 // import routes here
 app.use('/', require('./routes/view-index-routes'));
 
