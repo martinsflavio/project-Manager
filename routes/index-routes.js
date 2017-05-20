@@ -3,8 +3,8 @@
 const express     = require('express'),
     router        = express.Router(),
     db            = require('../models'),
-    passport      = require('passport'),
-    LocalStrategy = require('passport-local').Strategy;
+    passport      = require('../auth/passport');
+
 
 ///////////////// index page //////////////////
 
@@ -39,7 +39,7 @@ router.post('/register', (req,res) => {
   if(errors){
 
     res.render('register',{errors:errors});
-      console.log(errors);
+
   } else {
     newUser.name      = req.body.name;
     newUser.username  = req.body.username;
@@ -49,7 +49,6 @@ router.post('/register', (req,res) => {
     db.Users.createUser(newUser, data => {
 
       if(data.errors) {
-        console.log(data.errors);
         res.render('register',{errors:data.errors});
       } else {
         req.flash('success_msg', 'You are registered and can now login');
@@ -70,65 +69,37 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
+//(TODO DEVELOPER) how handle properly the errors + redirectint to dashboard with user obj
 
-passport.use(new LocalStrategy(
-    (username, password, done) => {
-      db.Users.getUserByUsername(username, user => {
+// Send user obj and redirect but not handle error messages
+router.post('/login',
+    passport.authenticate('local'),
+    (req, res) => {
+      // If this function gets called, authentication was successful.
+      // `req.user` contains the authenticated user.
+      res.redirect('/user/dashboard/' + req.user.id);
+    });
 
-        if(!user){
-          return done(null, false, {message: 'Unknown User'});
-        }
-
-        db.Users.comparePassword(password, user.password, (err,isMatch) => {
-          if (err) {return done(err);}
-
-          if(isMatch){
-            return done(null, user);
-          } else {
-            return done(null, false, {message: 'Invalid password'});
-          }
-        });
-      });
-    }));
-
-
-passport.serializeUser((user, done) => {
-
-  done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-
-  db.Users.getUserById(id, user => {
-
-    if (user) {
-      done(null, user.get());
-    } else {
-      done(user.errors, null);
-    }
-  });
-});
-
-
-
-
-
+// perfect error handler but not send and data back
 
 // Authenticate User
-router.post('/login',
-    passport.authenticate('local', {successRedirect:'/user/dashboard', failureRedirect:'/login',failureFlash: true}),
+/*router.post('/login',
+    passport.authenticate('local',
+        {
+          successRedirect:'/user/dashboard',
+          failureRedirect:'/login',
+          failureFlash: true
+        }),
     function(req, res) {
       res.redirect('/');
-});
-///////////////////////////////////////////////
+    });*/
+//////////////////// logout ///////////////////////////
 
-router.get('/logout', function(req, res){
+router.get('/logout', (req, res) => {
   req.logout();
-
   req.flash('success_msg', 'You are logged out');
-
   res.redirect('/');
 });
-
+///////////////////////////////////////////////////////
 module.exports = router;
 

@@ -1,14 +1,5 @@
 const db = require('../models');
 
-addUsers();
-addProjects();
-addPropsoals();
-addComments();
-
-
-
-
-
 
 //////////////// functions ////////////////////
 addUsers = () => {
@@ -27,16 +18,6 @@ addUsers = () => {
       name:'steph',
       username: 'steph',
       email:'steph@gmail.com',
-      password:'123'
-    },{
-      name:'cida',
-      username: 'cida',
-      email:'cida@gmail.com',
-      password:'123'
-    },{
-      name:'iza',
-      username: 'iza',
-      email:'iza@gmail.com',
       password:'123'
     }
   ];
@@ -98,7 +79,7 @@ addProjects = () => {
 
 };
 
-addPropsoals = () => {
+addProposals = () => {
   let Proposals = [
     {
       subject: 'make change 1',
@@ -133,7 +114,7 @@ addPropsoals = () => {
   ];
 
   Proposals.forEach( proposal =>{
-    db.Projects.create(proposal).then(regProposal => {
+    db.Proposals.create(proposal).then(regProposal => {
       console.log(`Proposal Created: ${regProposal.description}`);
     })
   });
@@ -142,21 +123,74 @@ addPropsoals = () => {
 addComments = () => {
   let Comments = [
     {
-      subject:'comment 1 ',
-      body:'blabl abalal ablablalba bbalba lblablalbb alblalbal balbl ablabl albl abla lblablabl lablala vllalavlavllavlal l lval'
+      body:'blabl abalal ablablalba bbalba lblablalbb alblalbal balbl ablabl albl abla lblablabl lablala vllalavlavllavlal l lval',
+      ProjectId: 1,
+      UserId: 1
     },
-    {},
-    {},
-    {},
-    {}
+    {
+      body:'blabl abalal ablablalba bbalba lblablalbb alblalbal balbl ablabl albl abla lblablabl lablala vllalavlavllavlal l lval',
+      ProjectId: 1,
+      UserId: 2
+    },
+    {
+      body:'blabl abalal ablablalba bbalba lblablalbb alblalbal balbl ablabl albl abla lblablabl lablala vllalavlavllavlal l lval',
+      ProjectId: 1,
+      UserId: 3
+    },
+    {
+      body:'blabl abalal ablablalba bbalba lblablalbb alblalbal balbl ablabl albl abla lblablabl lablala vllalavlavllavlal l lval',
+      ProjectId: 1,
+      UserId: 1
+    },
+    {
+      body:'blabl abalal ablablalba bbalba lblablalbb alblalbal balbl ablabl albl abla lblablabl lablala vllalavlavllavlal l lval',
+      ProjectId: 2,
+      UserId: 1
+    }
   ];
 
-  Comments.forEach( proposal =>{
-    db.Projects.create(proposal).then(regProposal => {
-      console.log(`Proposal Created: ${regProposal.description}`);
+  Comments.forEach( comment =>{
+    db.Comments.create(comment).then(regComment => {
+      console.log(`Comment Created: ${regComment.description}`);
     })
   });
 };
 
+addAttachments = () => {
+  let Attachments = [
+    {
+      description: 'file 1',
+      url:'http://www.exemple.com',
+      ProjectId: 1
+    },{
+      description: 'file 2',
+      url:'http://www.exemple.com',
+      ProjectId: 1
+    },{
+      description: 'file 3',
+      url:'http://www.exemple.com',
+      ProjectId: 1
+    },{
+      description: 'file 1',
+      url:'http://www.exemple.com',
+      ProjectId: 2
+    },{
+      description: 'file 2',
+      url:'http://www.exemple.com',
+      ProjectId: 2
+    }
+  ];
 
+  Attachments.forEach( attachment =>{
+    db.Attachments.create(attachment).then(regAttachment => {
+      console.log(`Attachment Created: ${regAttachment.description}`);
+    })
+  });
 
+};
+
+//addUsers();
+//addProjects();
+addProposals();
+//addComments();
+//addAttachments();

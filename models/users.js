@@ -6,16 +6,10 @@ const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   let Users;
   let schema;
-  let options;
+  let associations;
 
   ///////// Schema
   schema = {
-    id: {
-      type: DataTypes.INTEGER,
-      field: 'UserId',
-      primaryKey: true,
-      autoIncrement: true
-    },
     name: {
       type: DataTypes.STRING,
       allowNull: false
@@ -38,19 +32,22 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
-  ///////// Association - 1:m
-  options = {
-    classMethods: models => {
-      Users.hasToMany(models.Projects, {onDelete: "cascade"});
+  //(TODO DEVELOPER) aparently the correct way to inject methods into Users Obj is inside options Obj
+
+  Users = sequelize.define("Users",schema, {
+    classMethods: {
+      associate: function(models) {
+        Users.hasMany(models.Projects, {onDelete: "cascade"});
+        Users.hasMany(models.Proposals, {onDelete: "cascade"});
+
+      }
     }
-  };
+  });
 
 
-  Users = sequelize.define("Users",schema, options);
 
-
+  //////////////////// Additional Methods //////////////////////////
   Users.createUser = (newUser, callback) => {
-
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(newUser.password, salt, (err, hash) => {
         newUser.password = hash;
@@ -67,7 +64,6 @@ module.exports = (sequelize, DataTypes) => {
       });
     });
   };
-
 
   Users.getUserByUsername = (username, callback) => {
     let query = { where: {username: username} };
@@ -93,6 +89,8 @@ module.exports = (sequelize, DataTypes) => {
       callback(null, isMatch);
     });
   };
+
+
 
   return Users;
 };

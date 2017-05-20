@@ -7,13 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 
   ///////// Schema
   schema = {
-    id: {
-      type: DataTypes.INTEGER,
-      field: 'AttId',
-      primaryKey: true,
-      autoIncrement: true
-    },
-    attachmentDescription: {
+    description: {
       type: DataTypes.STRING
     },
     urls: {

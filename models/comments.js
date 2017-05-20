@@ -7,13 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 
   ///////// Schema
   schema = {
-    id: {
-      type: DataTypes.INTEGER,
-      field: 'CommentId',
-      primaryKey: true,
-      autoIncrement: true
-    },
-    commentBody: {
+    body: {
       type: DataTypes.TEXT
     }
   };

@@ -1,20 +1,23 @@
 const passport      = require('passport'),
       LocalStrategy = require('passport-local').Strategy,
-      db            = require('./modules');
+      db            = require('../models');
+
+
+
+
 
 
 passport.use(new LocalStrategy(
-    function(username, password, done) {
+    (username, password, done) => {
+      db.Users.getUserByUsername(username, user => {
 
-
-      User.getUserByUsername(username, function(err, user){
-        if(err) throw err;
         if(!user){
           return done(null, false, {message: 'Unknown User'});
         }
 
-        User.comparePassword(password, user.password, function(err, isMatch){
-          if(err) throw err;
+        db.Users.comparePassword(password, user.password, (err,isMatch) => {
+          if (err) {return done(err);}
+
           if(isMatch){
             return done(null, user);
           } else {
@@ -25,3 +28,33 @@ passport.use(new LocalStrategy(
     }));
 
 
+passport.serializeUser((user, done) => {
+
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+
+  db.Users.getUserById(id, user => {
+
+    if (user) {
+      done(null, user.get());
+    } else {
+      done(user.errors, null);
+    }
+  });
+});
+
+
+
+passport.ensureAuthenticated = (req, res, next) =>{
+  if(req.isAuthenticated()){
+    return next();
+  } else {
+    req.flash('error_msg','You are not logged in');
+    res.redirect('/login');
+  }
+}
+
+
+module.exports = passport;

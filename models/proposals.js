@@ -7,25 +7,19 @@ module.exports = (sequelize, DataTypes) => {
 
   ///////// Schema
   schema = {
-    id: {
-      type: DataTypes.INTEGER,
-      field: 'ProposalId',
-      primaryKey: true,
-      autoIncrement: true
-    },
-    proposalTitle: {
+    subject: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
-    proposalBody: {
+    body: {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    proposalAgree: {
+    agree: {
       type: DataTypes.INTEGER
     },
-    proposalDisagree: {
+    disagree: {
       type: DataTypes.INTEGER
     }
   };

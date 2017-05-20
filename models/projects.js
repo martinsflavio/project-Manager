@@ -7,38 +7,27 @@ module.exports = (sequelize, DataTypes) => {
 
   ///////// Schema
   schema = {
-    id: {
-      type: DataTypes.INTEGER,
-      field: 'ProjId',
-      primaryKey: true,
-      autoIncrement: true
-    },
-    projectSubject: {
+    subject: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
-    projectDescription: {
+    description: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    zipCode: {
-      type: DataTypes.STRING(10),
-      allowNull: false
-    }
+
   };
 
-  ///////// Association - m:1
-  association = {
+
+
+  Projects = sequelize.define("Projects",schema, {
     classMethods: {
-      associate: models => {
-        Projects.belongsTo(models.Users, {foreignKey: {allowNull: false}});
-        Projects.hasMany(models.Attachments, {onDelete: "cascade"});
+      associate: function(models) {
+        Projects.belongsTo(models.Users, {foreignKey: {allowNull: false}
+        });
       }
     }
-  };
-
-
-  Projects = sequelize.define("Projects",schema, association);
+  });
   return Projects;
 };
