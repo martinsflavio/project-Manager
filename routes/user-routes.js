@@ -16,8 +16,9 @@ router.get('/dashboard/:id', passport.ensureAuthenticated, (req,res)=> {
   };
 
   db.Users.findOne(query).then(userData => {
-    res.json(userData);
-    //res.render('dashboard',userData);
+
+    res.render('dashboard',userData);
+
   }).catch(err => {
     console.log('Error querying user data');
     console.log(err);

@@ -35,17 +35,18 @@ router.post('/project/create/:id', (req,res) => {
 
       res.redirect(`/user/project/${regProject.id}`);
 
-    }).catch(error => {
-      res.render('error', error);
+    }).catch(errors => {
+      res.render('add-project',{msg:errors});
     });
   }
 });
 ////////////////////////////////////////////////////////////////////
 
+
+/////////////////// proposal forms ///////////////////////////////
 router.post('/proposal/create/:userid/:projid', (req,res) => {
   let errors;
-  let userId = req.params.userid;
-  let projId = req.params.projid;
+  let newProposal = {};
 
   // Validate
   req.checkBody('subject', 'Title is required').notEmpty();
@@ -59,18 +60,10 @@ router.post('/proposal/create/:userid/:projid', (req,res) => {
     res.render('add-project',{msg:errors});
 
   } else {
-    newProject.UserId = req.params.id;
-    newProject.subject = req.body.subject;
-    newProject.description = req.body.description;
+    newProposal.UserId      = req.params.id;
+    newProposal.subject     = req.body.subject;
+    newProposal.description = req.body.description;
 
-
-    db.Projects.create(newProject).then(regProject => {
-
-      res.redirect(`/user/project/${regProject.id}`);
-
-    }).catch(error => {
-      res.render('error', error);
-    });
   }
 
 
@@ -78,13 +71,22 @@ router.post('/proposal/create/:userid/:projid', (req,res) => {
       subject   : req.body.subject,
       body      : req.body.subject,
       ProjectId : req.params.projid,
-      UserId    : req.params.UserId
+      UserId    : req.params.userid
   };
+
 
   db.Proposals.create(query).then(regProposal => {
 
-  })
+  }).catch(err => {
+    let errorsList = [];
+    err.errors.forEach(dbErrors =>{
+      errorsList.push({msg : dbErrors.message});
+    });
+    render('add-project',{errors:errors});
+  });
 
 });
 
 module.exports = router;
+
+

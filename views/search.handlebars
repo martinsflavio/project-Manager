@@ -1,44 +1,34 @@
 	<div class="container">
-
-			<div class="jumbotron">
-						<h1>Project Manager</h1>
+			<div>
+			<h2>Project manager</h2>
 				<h3>Working together in a planned and coordinated way to achieve a common goal</h3>
 				<hr>
 				<a href="/search" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-eye-open"></span> Search Projects</a>
 				<a href="/add-project" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-plus"></span> Add New Project</a>
-				<a href="/user-home" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-th-list"></span> All Projects</a>
+				<a href="/userhome" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-th-list"></span> All Projects</a>
 			</div>
-			<div class="row">
+			<hr>
+			<br>
+		<form class="form-inline">
+		  <label class="sr-only" for="title">Project Title</label>
+		  <input type="text" class="form-control mb-4" id="title" placeholder="title">
 
-				<div class="col-lg-12">
+		  <label class="sr-only" for="Category">Category</label>
+		  <div class="input-group mb-4">   
+		    <input type="text" class="form-control" id="Category" placeholder="Category">
+		  </div>
 
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title"><strong>Project Search</strong></h3>
-						</div>
-						<div class="panel-body">
-							<input type="text" id="book-search" class="form-control" >
-							<br>
-							<div class="text-right">
-								<button class="btn btn-primary btn-md" id="search-btn"><span class="glyphicon glyphicon-search"></span> Search</button>
-							</div>
-						</div>
-					</div>
+		  <label class="sr-only" for="zipcode">Zipcode</label>
+		  <div class="input-group mb-4">   
+		    <input type="text" class="form-control" id="zipcode" placeholder="zipcode">
+		  </div>
 
+		  <button  id="" type="submit" class="btn btn-primary">Search </button>
+		</form>
+		<br>
 					
 
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title"><strong>category Search</strong></h3>
-						</div>
-						<div class="panel-body">
-							<input type="text" id="genre-search" class="form-control">
-							<br>
-							<div class="text-right">
-								<button class="btn btn-primary btn-md" id="genre-search-btn"><span class="glyphicon glyphicon-search"></span> Search</button>
-							</div>
-						</div>
-					</div>
+					
 
 					<div class="panel panel-default">
 						<div class="panel-heading">
