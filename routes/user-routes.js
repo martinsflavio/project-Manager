@@ -28,7 +28,7 @@ router.get('/dashboard/:id', passport.ensureAuthenticated, (req,res)=> {
 
     console.log(response);
 
-    res.json(response);
+    res.render('dashboard',response);
 
     //res.render('dashboard',userData);
 
