@@ -2,17 +2,16 @@
 
 const express     = require('express'),
       router      = express.Router(),
-      db          = require('../models'),
-      passport    = require('../auth/passport');
+      db          = require('../models');
 
 
 
-router.get('/dashboard', passport.ensureAuthenticated, (req,res)=> {
+router.get('/dashboard', (req,res)=> {
  res.render('dashboard');
 });
 
 
-router.get('/dashboard/:id',passport.ensureAuthenticated , (req,res) =>{
+router.get('/dashboard/:id', (req,res) =>{
   let userId = req.params.id;
 
   let query = {

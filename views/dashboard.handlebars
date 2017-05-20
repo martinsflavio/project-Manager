@@ -2,7 +2,7 @@
 	<nav>
 		<ul class="nav nav-pills pull-right">
 			<li role="presentation"><a href="/user/project/search">Search</a></li>
-			<li role="presentation"><a href="/login">Add Project</a></li>
+			<li role="presentation"><a href="/user/project/form">Add Project</a></li>
 			<li role="presentation"><a href="/register">All Projects</a></li>
 		</ul>
 	</nav>
@@ -17,7 +17,7 @@
 				<div class="panel-body">
 					<lu>
 						{{#each user.projects}}
-							<li>{{this.subject}}</li>
+							<li role="presentation"><a href="/user/project/open/{{this.id}}">{{this.subject}}</a></li>
 						{{/each}}
 					</lu>
 				</div>

@@ -1,9 +1,13 @@
-<h2 class="page-header">Register</h2>
+<div class="page-header">
+	<h2>Register</h2>
+</div>
+
 {{#if errors}}
       {{#each errors}}
         <div class="alert alert-danger">{{msg}}</div>
       {{/each}}
 {{/if}}
+
 <form method="post" action="/register">
    <div class="form-group">
     <label>Name</label>
