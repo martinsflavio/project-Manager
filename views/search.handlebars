@@ -1,49 +1,33 @@
-	<div class="container">
-			<div>
-			<h2>Project manager</h2>
-				<h3>Working together in a planned and coordinated way to achieve a common goal</h3>
-				<hr>
-				<a href="/search" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-eye-open"></span> Search Projects</a>
-				<a href="/add-project" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-plus"></span> Add New Project</a>
-				<a href="/userhome" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-th-list"></span> All Projects</a>
-			</div>
-			<hr>
-			<br>
-		<form class="form-inline">
-		  <label class="sr-only" for="title">Project Title</label>
-		  <input type="text" class="form-control mb-4" id="title" placeholder="title">
 
-		  <label class="sr-only" for="Category">Category</label>
-		  <div class="input-group mb-4">   
-		    <input type="text" class="form-control" id="Category" placeholder="Category">
-		  </div>
+		<div class="header clearfix">
+			<nav>
+				<ul class="nav nav-pills pull-right">
+					<li role="presentation"><a href="/user/project/search">Search</a></li>
+					<li role="presentation"><a href="/login">Add Project</a></li>
+					<li role="presentation"><a href="/register">All Projects</a></li>
+				</ul>
+			</nav>
+		</div>
 
-		  <label class="sr-only" for="zipcode">Zipcode</label>
-		  <div class="input-group mb-4">   
-		    <input type="text" class="form-control" id="zipcode" placeholder="zipcode">
-		  </div>
+		<hr>
 
-		  <button  id="" type="submit" class="btn btn-primary">Search </button>
-		</form>
-		<br>
-					
-
-					
-
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title"><strong>Project Search Results</strong></h3>
-						</div>
-						<div class="panel-body">
-							<div class="well" id="stats" hidden="true">
-								<h2 id="title"></h2>
-								<div>
-									<h3><strong>title:</strong> <span id="title"></span></h3>
-									<h3><strong>description:</strong> <span id="description"></span></h3>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>			
+	<div class="row">
+		<div class="col-md-12">
+			<form  method="post" action="/user/project/search">
+				<div class="form-group">
+					<button type="submit" class="btn btn-info pull-right">Search</button>
+					<input type="text" class="form-control" placeholder="Project" name="subject">
+				</div>
+			</form>
+			<p></p>
+			<div class="panel panel-default col-sm-12">
+				<div class="panel-body">
+				{{#each this}}
+					<a href="/user/project/view/{{id}}">{{subject}}</a>
+				{{/each}}
+				</div>
 			</div>
 		</div>
+	</div>
+
+

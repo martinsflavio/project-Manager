@@ -7,38 +7,38 @@ const express     = require('express'),
 
 
 
-/* GET user profile page */
-router.get('/dashboard/:id', passport.ensureAuthenticated, (req,res)=> {
-  let id = req.params.id;
+router.get('/dashboard', passport.ensureAuthenticated, (req,res)=> {
+ res.render('dashboard');
+});
+
+
+router.get('/dashboard/:id',passport.ensureAuthenticated , (req,res) =>{
+  let userId = req.params.id;
+
   let query = {
-    where:{id:id},
-    include: [db.Projects,db.Proposals]
-  };
+   where:{id:userId},
+   include: [db.Projects,db.Proposals]
+   };
 
-  db.Users.findOne(query).then(userData => {
-    let response = {
-      user:{
-        id        : userData.dataValues.id,
-        name      : userData.dataValues.name,
-        email     : userData.dataValues.email,
-        projects  : userData.dataValues.Projects,
-        proposals : userData.dataValues.Proposals
-      }
-    };
+   db.Users.findOne(query).then(userData => {
+     let user = {
+     user:{
+       id        : userData.dataValues.id,
+       name      : userData.dataValues.name,
+       email     : userData.dataValues.email,
+       projects  : userData.dataValues.Projects,
+       proposals : userData.dataValues.Proposals
+     }
+   };
+     res.render('dashboard',user);
 
-    console.log(response);
+   }).catch(err => {
+   console.log('Error querying user data');
+   console.log(err);
+   req.flash('error_msg', 'User data not Found!');
 
-    res.render('dashboard',response);
-
-    //res.render('dashboard',userData);
-
-  }).catch(err => {
-    console.log('Error querying user data');
-    console.log(err);
-    req.flash('error_msg', 'User data not Found!');
-
-    res.render(`error`,err);
-  });
+   res.render(`error`,err);
+   });
 
 
 

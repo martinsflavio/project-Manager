@@ -2,12 +2,55 @@
 
 const express     = require('express'),
       router      = express.Router(),
-      db          = require('../models');
+      db          = require('../models'),
+      passport    = require('../auth/passport');
+
+
+/////////////////////// search page ///////////////////////////////
+
+//  new project form
+router.get('/project/search',passport.ensureAuthenticated, (req,res) => {
+  res.render('search');
+});
+
+// search btn
+router.post('/project/search', passport.ensureAuthenticated, (req,res) => {
+  let searchFor = {};
+  let errors;
+
+  // Validation
+  req.checkBody('subject', 'Subject is required').notEmpty();
+
+  errors = req.validationErrors();
+
+  if(errors){
+    req.flash('error_msg', 'Project Title Required!');
+   // res.redirect('search');
+
+  } else {
+
+    db.Projects.findAll({where:{subject:req.body.subject}}).then(data => {
+      let project = data[0].dataValues;
+
+      console.log(project);
+      res.render('search', {project:project});
+
+    }).catch(err => {
+
+      res.render('error',error);
+
+    })
+
+  }
+});
 
 
 
-/////////////////////// project page ///////////////////////////////
-/* Create new Project */
+//////////////////////////////// project page //////////////////////
+
+
+
+//  add project
 router.post('/project/create/:id', (req,res) => {
   let userId = req.params.id;
   let errors;
@@ -32,16 +75,30 @@ router.post('/project/create/:id', (req,res) => {
 
 
     db.Projects.create(newProject).then(regProject => {
-
-      res.redirect(`/user/project/${regProject.id}`);
+      res.json(regProject);
+      //res.redirect(`/user/project/${regProject.id}`);
 
     }).catch(errors => {
       res.render('add-project',{msg:errors});
     });
   }
 });
-////////////////////////////////////////////////////////////////////
 
+
+// load  project page whit a project
+router.get('/project/open/:id', passport.ensureAuthenticated, (req,res) => {
+  let id = req.params.id;
+  let query = {where:{id:id}};
+
+  db.Projects.findOne(query).then(regProject => {
+    res.json(regProject);
+  }).catch(err => {
+    res.render('err',err);
+  });
+});
+
+
+////////////////////////////////////////////////////////////////////
 
 /////////////////// proposal forms ///////////////////////////////
 router.post('/proposal/create/:userid/:projid', (req,res) => {

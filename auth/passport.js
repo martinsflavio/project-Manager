@@ -29,7 +29,6 @@ passport.use(new LocalStrategy(
 
 
 passport.serializeUser((user, done) => {
-
   done(null, user.id);
 });
 
@@ -44,8 +43,6 @@ passport.deserializeUser((id, done) => {
     }
   });
 });
-
-
 
 passport.ensureAuthenticated = (req, res, next) =>{
   if(req.isAuthenticated()){
