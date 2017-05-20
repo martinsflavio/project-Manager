@@ -3,7 +3,7 @@
 module.exports = (sequelize, DataTypes) => {
   let Comments;
   let schema;
-  let association;
+
 
   ///////// Schema
   schema = {
@@ -12,16 +12,17 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
-  ///////// Association - m:1
-  association = {
+
+
+  Comments = sequelize.define("Comments",schema, {
     classMethods: {
-      associate: models => {
+      associate: function(models) {
         Comments.belongsTo(models.Projects, {foreignKey: {allowNull: false}});
         Comments.belongsTo(models.Users, {foreignKey: {allowNull: false}});
       }
     }
-  };
+  });
 
-  Comments = sequelize.define("Comments",schema, association);
+
   return Comments;
 };

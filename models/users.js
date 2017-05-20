@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       associate: function(models) {
         Users.hasMany(models.Projects, {onDelete: "cascade"});
         Users.hasMany(models.Proposals, {onDelete: "cascade"});
-
+        Users.hasMany(models.Comments, {onDelete: "cascade"});
       }
     }
   });

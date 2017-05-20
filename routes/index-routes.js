@@ -72,11 +72,9 @@ router.get('/login', (req, res) => {
 //(TODO DEVELOPER) how handle properly the errors + redirectint to dashboard with user obj
 
 // Send user obj and redirect but not handle error messages
-router.post('/login',
-    passport.authenticate('local'),
-    (req, res) => {
-      res.redirect('/user/dashboard/' + req.user.id);
-    });
+router.post('/login', passport.authenticate('local'), (req, res) => {
+  res.redirect('/user/dashboard/' + req.user.id);
+});
 
 // perfect error handler but not send and data back
 

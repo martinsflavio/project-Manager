@@ -24,8 +24,10 @@ module.exports = (sequelize, DataTypes) => {
   Projects = sequelize.define("Projects",schema, {
     classMethods: {
       associate: function(models) {
-        Projects.belongsTo(models.Users, {foreignKey: {allowNull: false}
-        });
+        Projects.belongsTo(models.Users, {foreignKey: {allowNull: false}});
+        Projects.hasMany(models.Comments, {onDelete: "cascade"});
+        Projects.hasMany(models.Proposals, {onDelete: "cascade"});
+        Projects.hasMany(models.Attachments, {onDelete: "cascade"});
       }
     }
   });

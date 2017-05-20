@@ -24,16 +24,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
-  ///////// Association - m:1
-  association = {
+
+  Proposals = sequelize.define("Proposals",schema, {
     classMethods: {
-      associate: models => {
+      associate: function(models) {
         Proposals.belongsTo(models.Projects, {foreignKey: {allowNull: false}});
         Proposals.belongsTo(models.Users, {foreignKey: {allowNull: false}});
       }
     }
-  };
+  });
 
-  Proposals = sequelize.define("Proposals",schema, association);
+
   return Proposals;
 };

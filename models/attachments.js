@@ -3,7 +3,7 @@
 module.exports = (sequelize, DataTypes) => {
   let Attachments;
   let schema;
-  let association;
+
 
   ///////// Schema
   schema = {
@@ -15,15 +15,17 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
-  ///////// Association - m:1
-  association = {
+
+
+
+  Attachments = sequelize.define("Attachments",schema, {
     classMethods: {
-      associate: models => {
+      associate: function(models) {
         Attachments.belongsTo(models.Projects, {foreignKey: {allowNull: false}});
       }
     }
-  };
+  });
 
-  Attachments = sequelize.define("Attachments",schema, association);
+
   return Attachments;
 };
