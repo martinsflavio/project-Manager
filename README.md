@@ -1,8 +1,2 @@
-# Project-Manager
-A Project sharing Application
-## Developers
-### Front-end
-- Arezzo Tajer
-### Back-end
-- Ricky Grams
-- Flavio Martins
+# Study Guide App
+- Users can put together study material and organize in a way that simplifies the learning process.

@@ -190,7 +190,7 @@ addAttachments = () => {
 };
 
 //addUsers();
-//addProjects();
+addProjects();
 addProposals();
-//addComments();
-//addAttachments();
+addComments();
+addAttachments();

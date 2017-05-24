@@ -6,7 +6,6 @@ const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   let Users;
   let schema;
-  let associations;
 
   ///////// Schema
   schema = {
@@ -40,6 +39,7 @@ module.exports = (sequelize, DataTypes) => {
         Users.hasMany(models.Projects, {onDelete: "cascade"});
         Users.hasMany(models.Proposals, {onDelete: "cascade"});
         Users.hasMany(models.Comments, {onDelete: "cascade"});
+        Users.hasMany(models.Votes, {onDelete: "cascade"});
       }
     }
   });

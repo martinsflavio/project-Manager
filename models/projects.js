@@ -3,7 +3,6 @@
 module.exports = (sequelize, DataTypes) => {
   let Projects;
   let schema;
-  let association;
 
   ///////// Schema
   schema = {
@@ -28,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         Projects.hasMany(models.Comments, {onDelete: "cascade"});
         Projects.hasMany(models.Proposals, {onDelete: "cascade"});
         Projects.hasMany(models.Attachments, {onDelete: "cascade"});
+        Projects.hasMany(models.Votes, {onDelete: "cascade"});
       }
     }
   });

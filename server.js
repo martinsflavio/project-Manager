@@ -72,6 +72,7 @@ app.use('/', require('./routes/index-routes'));
 app.use('/user', passport.ensureAuthenticated, require('./routes/user-routes'));
 app.use('/user', passport.ensureAuthenticated, require('./routes/project-routes'));
 app.use('/user', passport.ensureAuthenticated, require('./routes/proposal-routes'));
+app.use('/user', passport.ensureAuthenticated, require('./routes/comment-routes'));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

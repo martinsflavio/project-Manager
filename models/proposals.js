@@ -3,7 +3,6 @@
 module.exports = (sequelize, DataTypes) => {
   let Proposals;
   let schema;
-  let association;
 
   ///////// Schema
   schema = {
@@ -15,12 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     body: {
       type: DataTypes.TEXT,
       allowNull: false
-    },
-    agree: {
-      type: DataTypes.INTEGER
-    },
-    disagree: {
-      type: DataTypes.INTEGER
     }
   };
 
@@ -30,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       associate: function(models) {
         Proposals.belongsTo(models.Projects, {foreignKey: {allowNull: false}});
         Proposals.belongsTo(models.Users, {foreignKey: {allowNull: false}});
+        Proposals.hasMany(models.Votes, {onDelete: "cascade"});
       }
     }
   });

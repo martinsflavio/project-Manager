@@ -3,7 +3,7 @@
 		<ul class="nav nav-pills pull-right">
 			<li role="presentation"><a href="/user/project/search">Search</a></li>
 			<li role="presentation"><a href="/user/project/form">Add Project</a></li>
-			<li role="presentation"><a href="/register">All Projects</a></li>
+			<li role="presentation"><a href="/user/project/all">All Projects</a></li>
 		</ul>
 	</nav>
 </div>
@@ -29,7 +29,14 @@
 				<div class="panel-body">
 					<lu>
 						{{#each user.proposals}}
-							<li>{{this.subject}}</li>
+							<li role="presentation">
+								<a href="/user/project/open/{{this.ProjectId}}">
+									{{this.subject}}
+									<p>{{this.body}}</p>
+									<p>Agree: {{this.agree}} | Disagree:{{this.disagree}}</p>
+									<hr>
+								</a>
+							</li>
 						{{/each}}
 					</lu>
 				</div>

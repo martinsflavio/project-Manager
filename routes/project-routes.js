@@ -14,35 +14,29 @@ router.get('/project/search', (req,res) => {
 
 // search btn
 router.post('/project/search', (req,res) => {
-  let searchFor = {};
+  let query;
   let errors;
 
   // Validation
   req.checkBody('subject', 'Subject is required').notEmpty();
 
   errors = req.validationErrors();
+  query  = {
+    where:{subject:req.body.subject},
+    include: [db.Users]
+  };
 
   if(errors){
     req.flash('error_msg', 'Project Title Required!');
-   // res.redirect('search');
-
+    res.redirect('/user/project/search');
   } else {
-
-    db.Projects.findAll({where:{subject:req.body.subject}}).then(data => {
-      let project = data[0].dataValues;
-
-      console.log(project);
-      res.render('search', {project:project});
-
+    db.Projects.findAll(query).then(projects => {
+      res.render('search', projects);
     }).catch(err => {
-
-      res.render('error',error);
-
+      res.render('error',err);
     })
-
   }
 });
-
 
 
 ////////////////////// project page //////////////////////////////
@@ -53,8 +47,7 @@ router.get('/project/form', (req,res) => {
 });
 
 //  add project
-router.post('/project/new/:id', (req,res) => {
-  let userId;
+router.post('/project/new/:userid', (req,res) => {
   let errors;
   let newProject = {};
 
@@ -63,7 +56,6 @@ router.post('/project/new/:id', (req,res) => {
   req.checkBody('subject', 'Title is required').notEmpty();
   req.checkBody('description', 'Description is required').notEmpty();
 
-  userId = req.params.id;
   errors = req.validationErrors();
 
 
@@ -72,7 +64,7 @@ router.post('/project/new/:id', (req,res) => {
     res.render('add-project',{errors:errors});
 
   } else {
-    newProject.UserId = userId;
+    newProject.UserId = req.params.userid;
     newProject.subject = req.body.subject;
     newProject.description = req.body.description;
 
@@ -87,24 +79,46 @@ router.post('/project/new/:id', (req,res) => {
 });
 
 // open selected project on project view page
-router.get('/project/open/:id', (req,res) => {
-  let projId = req.params.id;
-  let query = {where:{id: projId}};
+router.get('/project/open/:projid', (req,res) => {
+  let projId = req.params.projid;
+
+  let query = {
+    where:{id: projId}, attributes:['id','subject','description','UserId'],
+    include: [
+      {model: db.Comments, attributes:['id','body','ProjectId'],
+        include:[{model: db.Users, attributes: ['id','username']}]},
+      {model: db.Proposals, attributes:['id','subject','body','ProjectId'],
+        include:[{model: db.Users, attributes:['id','username']},
+          {model: db.Votes, attributes: ['id','vote']}]},
+
+    ]
+  };
 
   db.Projects.findOne(query).then(regProject => {
     let project = regProject.dataValues;
 
     res.render('project',project);
   }).catch(err => {
-    res.render('err',err);
+    res.render('error',err);
   });
+
+});
+
+// list all projects
+router.get('/project/all', (req,res) =>{
+  let query = {
+    where:{},
+    include:[db.Users]
+  };
+
+  db.Projects.findAll(query).then(allProjects => {
+    res.render('all-projects', allProjects);
+  }).catch(err => {
+    res.render('error', err);
+  })
 
 });
 
 ////////////////////////////////////////////////////////////////////
 
-
-
 module.exports = router;
-
-

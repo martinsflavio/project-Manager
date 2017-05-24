@@ -1,16 +1,95 @@
+<!-- Project Title -->
 <div class="page-header">
 	<h2>{{this.subject}}</h2>
 </div>
 
+<!-- Error handler -->
+{{#if errors}}
+	{{#each errors}}
+		<div class="alert alert-danger">{{msg}}</div>
+	{{/each}}
+{{/if}}
+
 <div class="row">
-	<h3>Description</h3>
-	<p>{{this.description}}</p>
-</div>
-<div class="row">
-	<div class="col-sm-6">
-		<h3>Attachments</h3>
+	<!-- Project Description -->
+	<div class="col-sm-3">
+		<div class="row">
+			<h3>Description</h3>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<p>{{this.description}}</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Add attachment -->
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					Attachments
+				</div>
+			</div>
+		</div>
+
 	</div>
-	<div class="col-sm-6">
+	<!-- Comments -->
+	<div class="col-sm-5">
 		<h3>Comments</h3>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="panel-body">
+					{{#each Comments}}
+						<p><strong>{{this.User.username}}:</strong> {{this.body}}</p>
+					{{/each}}
+				</div>
+					<form  method="post" action="/user/comment/new/{{user.id}}/{{this.id}}">
+						<input type="text" class="form-control" placeholder="Text input" name="body">
+						<button type="submit" class="btn btn-success btn-sm pull-right">Send</button>
+					</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Proposals -->
+	<div class="col-sm-4">
+		<h3>Proposals</h3>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				{{#each Proposals}}
+					<div class="row">
+						<p>{{this.subject}}</p>
+						<p>{{this.body}}</p>
+						<div>
+							<button type="submit"
+											class="btn btn-success btn-sm pull-right like"
+											data-projid="{{this.ProjectId}}"
+											data-propid="{{this.id}}"
+											data-userid="{{../user.id}}"> +
+											{{#each Votes}}
+												{{../Votes.length}}
+											{{/each}}
+							</button>
+							<button type="submit"
+											class="btn btn-danger btn-sm pull-right dislike"
+											data-projid="{{this.ProjectId}}"
+											data-propid="{{this.id}}"
+											data-userid="{{../user.id}}"> -
+											{{#each Votes}}
+												{{../Votes.length}}
+											{{/each}}
+							</button>
+						</div>
+					</div>
+					<hr>
+				{{/each}}
+				<form  method="post" action="/user/proposal/new/{{user.id}}/{{this.id}}">
+					<input type="text" class="form-control" placeholder="Title" name="subject">
+					<input type="text" class="form-control" placeholder="Descriptions" name="body">
+					<button type="submit" class="btn btn-success btn-sm pull-right">Create</button>
+				</form>
+			</div>
+		</div>
 	</div>
 </div>
+
+<script src="/assets/js/project.js"></script>

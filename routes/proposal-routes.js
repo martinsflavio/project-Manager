@@ -6,45 +6,68 @@ const express     = require('express'),
 
 
 /////////////////// proposal forms ///////////////////////////////
-router.post('/proposal/create/:userid/:projid', (req,res) => {
+router.post('/proposal/new/:userid/:projid', (req,res) => {
   let errors;
   let newProposal = {};
 
   // Validate
   req.checkBody('subject', 'Title is required').notEmpty();
-  req.checkBody('description', 'Description is required').notEmpty();
+  req.checkBody('body', 'Description is required').notEmpty();
 
   errors = req.validationErrors();
 
 
   if(errors){
-
-    res.render('add-project',{msg:errors});
+      res.render('project');
 
   } else {
-    newProposal.UserId      = req.params.id;
     newProposal.subject     = req.body.subject;
-    newProposal.description = req.body.description;
+    newProposal.body        = req.body.body;
+    newProposal.UserId      = req.params.userid;
+    newProposal.ProjectId   = req.params.projid;
+
+
+    db.Proposals.create(newProposal).then(regProposal => {
+      let projId = regProposal.dataValues.ProjectId;
+      res.redirect(`/user/project/open/${projId}`);
+    }).catch(err => {
+      res.render('error',err);
+    });
 
   }
 
 
-  let query = {
-    subject   : req.body.subject,
-    body      : req.body.subject,
-    ProjectId : req.params.projid,
-    UserId    : req.params.userid
+
+
+});
+
+//////////////////// vote button //////////////////////////////
+router.post('/proposal/vote/:vote/:userid/:propid/:projid', (req,res)=> {
+  let vote, query;
+
+  vote = {
+    vote       : req.params.vote,
+    UserId     : req.params.userid,
+    ProposalId : req.params.propid,
+    ProjectId  : req.params.projid
   };
 
+  query = {
+    defaults: vote,
+    where: {
+      UserId    :vote.UserId,
+      ProposalId:vote.ProposalId,
+      ProjectId :vote.ProjectId
+    }
+  };
 
-  db.Proposals.create(query).then(regProposal => {
+  db.Votes.findOrCreate(query).then(regVote => {
+    let projId = regVote[0].dataValues.ProjectId;
+
+    res.redirect(`/user/project/open/${projId}`);
 
   }).catch(err => {
-    let errorsList = [];
-    err.errors.forEach(dbErrors =>{
-      errorsList.push({msg : dbErrors.message});
-    });
-    render('add-project',{errors:errors});
+    res.render('error',err);
   });
 
 });

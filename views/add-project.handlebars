@@ -7,14 +7,14 @@
 		<div class="alert alert-danger">{{msg}}</div>
 	{{/each}}
 {{/if}}
-<form method="post" action="/user/project/new/{{user.id}}">
+<form id="project" method="post" action="/user/project/new/{{user.id}}">
 	<div class="form-group">
 		<label>Project Title</label>
 		<input type="text" class="form-control" placeholder="Title" name="subject">
 	</div>
 	<div class="form-group">
 		<label>Description</label>
-		<textarea class="form-control" name="description" rows="15"></textarea>
+		<textarea class="form-control" placeholder="Describe project here" name="description" rows="15"></textarea>
 	</div>
 	<button type="submit" class="btn btn-default">Create</button>
 </form>

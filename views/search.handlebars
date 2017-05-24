@@ -22,9 +22,22 @@
 			<p></p>
 			<div class="panel panel-default col-sm-12">
 				<div class="panel-body">
-				{{#each this}}
-					<a href="/user/project/view/{{id}}">{{subject}}</a>
-				{{/each}}
+					{{#each this}}
+						{{#if this.subject}}
+							<div class="col-sm-3">
+								<a style="text-decoration: none" href="/user/project/open/{{this.id}}">
+									<div class="thumbnail">
+										<img src="http://placehold.it/150x150" alt="http://placehold.it">
+										<div class="caption text-center" >
+											<h3>{{this.subject}}</h3>
+											<p>{{this.description}}</p>
+											<p>Author: {{this.User.name}}</p>
+										</div>
+									</div>
+								</a>
+							</div>
+						{{/if}}
+					{{/each}}
 				</div>
 			</div>
 		</div>

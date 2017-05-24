@@ -52,7 +52,6 @@ router.post('/register', (req,res) => {
         res.render('register',{errors:data.errors});
       } else {
         req.flash('success_msg', 'You are registered and can now login');
-
         res.redirect('/login');
       }
 
@@ -69,6 +68,8 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
+
+// Authenticate user
 router.post('/login',
     passport.authenticate('local',
         {
