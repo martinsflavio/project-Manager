@@ -13,7 +13,7 @@ const express            = require('express'),
       flash              = require('connect-flash');
 
 
-const PORT = process.env.NODE_ENV || 8080;
+const PORT = process.env.PORT || 8080;
 
 // view engine setup
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
